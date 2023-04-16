@@ -8,18 +8,14 @@ if (process.argv.length<3) {
 const password = process.argv[2]
 
 const url =
-  `mongodb+srv://andrew:${password}@cluster0.elj6b7a.mongodb.net/test`
+  `mongodb+srv://andrew:${password}@cluster0.elj6b7a.mongodb.net/phonebookApp?retryWrites=true&w=majority`
 
 mongoose.set('strictQuery',false)
 mongoose.connect(url)
 
 const personSchema = new mongoose.Schema({
   name: String,
-  number: {
-    type: String,
-    minLength: 8,
-    required: true
-  }
+  number: String
 })
 
 const Person = mongoose.model('Person', personSchema)
