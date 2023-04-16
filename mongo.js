@@ -8,29 +8,21 @@ if (process.argv.length<3) {
 const password = process.argv[2]
 
 const url =
-  `mongodb+srv://fullstack:${password}@cluster0.o1opl.mongodb.net/?retryWrites=true&w=majority`
+  `mongodb+srv://andrew:${password}@cluster0.elj6b7a.mongodb.net/test`
 
 mongoose.set('strictQuery',false)
 mongoose.connect(url)
 
 const personSchema = new mongoose.Schema({
   name: String,
-  number: Date
+  number: {
+    type: String,
+    minLength: 8,
+    required: true
+  }
 })
 
 const Person = mongoose.model('Person', personSchema)
-
-const person = new Person({
-  name: 'first person',
-  number: '99918',
-})
-
-/*
-note.save().then(result => {
-  console.log('note saved!')
-  mongoose.connection.close()
-})
-*/
 
 Person.find({}).then(result => {
   result.forEach(person => {
